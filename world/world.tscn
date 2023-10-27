@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://c1xno4bm2dlyj"]
+
+[ext_resource type="Script" path="res://world/StaticBody3D.gd" id="1_qhyk6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rexfs"]
+albedo_color = Color(1, 0.0901961, 0.0901961, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3rudc"]
+material = SubResource("StandardMaterial3D_rexfs")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lm1b3"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_eses0"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wrpki"]
+
+[node name="World" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+script = ExtResource("1_qhyk6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+visible = false
+mesh = SubResource("BoxMesh_3rudc")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+visible = false
+shape = SubResource("BoxShape3D_lm1b3")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("CapsuleMesh_eses0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/MeshInstance3D2"]
+transform = Transform3D(0.482609, 0, 0, 0, 0.2385, 0, 0, 0, 0.704962, 0.0556226, 0.731871, 0.359579)
+mesh = SubResource("BoxMesh_wrpki")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.22591)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.47152)
