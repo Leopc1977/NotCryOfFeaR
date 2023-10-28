@@ -1,10 +1,23 @@
-[gd_scene format=3 uid="uid://c1xno4bm2dlyj"]
+[gd_scene load_steps=5 format=3 uid="uid://c1xno4bm2dlyj"]
+
+[ext_resource type="Script" path="res://world/world.gd" id="1_5svwr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pw5d0"]
+albedo_color = Color(1, 0.337255, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7i3jt"]
+material = SubResource("StandardMaterial3D_pw5d0")
+size = Vector3(10, 0.5, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_agug3"]
+size = Vector3(10, 0.5, 10)
 
 [node name="World" type="Node3D"]
+script = ExtResource("1_5svwr")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+[node name="Menu_connect" type="PanelContainer" parent="CanvasLayer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -19,25 +32,41 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Menu_connect"]
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Menu_connect/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="Host" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Host" type="Button" parent="CanvasLayer/Menu_connect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Host"
 
-[node name="Join" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Join" type="Button" parent="CanvasLayer/Menu_connect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Join"
 
-[node name="IP" type="LineEdit" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="IP" type="LineEdit" parent="CanvasLayer/Menu_connect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 placeholder_text = "IP"
+alignment = 1
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_7i3jt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_agug3")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://world/Player.tscn")
+spawn_path = NodePath("..")
+
+[connection signal="pressed" from="CanvasLayer/Menu_connect/MarginContainer/VBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu_connect/MarginContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]
