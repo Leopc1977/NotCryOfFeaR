@@ -1,42 +1,43 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1xno4bm2dlyj"]
-
-[ext_resource type="Script" path="res://world/StaticBody3D.gd" id="1_qhyk6"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rexfs"]
-albedo_color = Color(1, 0.0901961, 0.0901961, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_3rudc"]
-material = SubResource("StandardMaterial3D_rexfs")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_lm1b3"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_eses0"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_wrpki"]
+[gd_scene format=3 uid="uid://c1xno4bm2dlyj"]
 
 [node name="World" type="Node3D"]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-script = ExtResource("1_qhyk6")
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-visible = false
-mesh = SubResource("BoxMesh_3rudc")
-skeleton = NodePath("../..")
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -143.0
+offset_top = -83.0
+offset_right = 143.0
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-visible = false
-shape = SubResource("BoxShape3D_lm1b3")
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D"]
-mesh = SubResource("CapsuleMesh_eses0")
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/MeshInstance3D2"]
-transform = Transform3D(0.482609, 0, 0, 0, 0.2385, 0, 0, 0, 0.704962, 0.0556226, 0.731871, 0.359579)
-mesh = SubResource("BoxMesh_wrpki")
+[node name="Host" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Host"
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.22591)
+[node name="Join" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Join"
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.47152)
+[node name="IP" type="LineEdit" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "IP"
